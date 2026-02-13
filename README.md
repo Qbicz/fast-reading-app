@@ -22,8 +22,6 @@ This app helps you read faster by displaying one word at a time in the center of
 
 ## Getting Started
 
-See [SETUP.md](SETUP.md) for detailed build and installation instructions.
-
 ### Quick Start
 
 1. Build the Rust library:
@@ -34,7 +32,37 @@ cd fast-reading-core
 
 2. Open Xcode and create a new iOS project
 3. Add the Swift files and link the Rust libraries
-4. Build and run!
+4. Build and run in simulator (⌘+R)
+
+### Testing in Simulator
+
+**Easiest method**:
+```bash
+# Open your Xcode project
+open FastReadingApp.xcodeproj
+
+# In Xcode:
+# 1. Select simulator from device menu (e.g., "iPhone 15 Pro")
+# 2. Press ⌘+R to build and run
+```
+
+**Command line method**:
+```bash
+# Boot simulator
+xcrun simctl boot "iPhone 15 Pro"
+open -a Simulator
+
+# Build and run in Xcode (⌘+R)
+```
+
+See [SIMULATOR_GUIDE.md](SIMULATOR_GUIDE.md) for comprehensive simulator testing instructions.
+
+### Documentation
+
+- [SETUP.md](SETUP.md) - Detailed build and installation instructions
+- [QUICKSTART.md](QUICKSTART.md) - Step-by-step Xcode project setup
+- [SIMULATOR_GUIDE.md](SIMULATOR_GUIDE.md) - How to test in iOS Simulator
+- [ARCHITECTURE.md](ARCHITECTURE.md) - Technical architecture details
 
 ## Architecture
 

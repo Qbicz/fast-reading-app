@@ -98,9 +98,20 @@ This creates:
 
 ## Step 6: Build and Run
 
-1. Select a simulator or device from the scheme menu
-2. Press `Cmd + R` or click the Play button
-3. The app should build and launch!
+1. **Select a simulator** from the device menu (top-left in Xcode):
+   - Click on device dropdown
+   - Choose "iPhone 15 Pro" or another simulator
+   - First launch may take 1-2 minutes
+
+2. **Press `⌘ + R`** (Cmd + R) or click the ▶️ Play button
+
+3. The simulator will start and your app will launch!
+
+**Need more help with the simulator?** See [SIMULATOR_GUIDE.md](SIMULATOR_GUIDE.md) for:
+- Command line simulator controls
+- Troubleshooting simulator issues
+- Different ways to start and manage simulators
+- Simulator keyboard shortcuts and tips
 
 ## Troubleshooting
 
