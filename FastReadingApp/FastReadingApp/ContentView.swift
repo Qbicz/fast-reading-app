@@ -103,7 +103,7 @@ struct ReadingView: View {
                 .padding()
             
             if viewModel.totalWords > 0 {
-                Text("\(min(viewModel.currentWordIndex + 1, viewModel.totalWords)) / \(viewModel.totalWords)")
+                Text("\(viewModel.displayWordIndex) / \(viewModel.totalWords)")
                     .font(.caption)
                     .foregroundColor(.gray)
             } else {

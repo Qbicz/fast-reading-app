@@ -19,6 +19,11 @@ class ReadingViewModel: ObservableObject {
     @Published var errorMessage: String = ""
     @Published var showError: Bool = false
     
+    // Computed property for display word index (capped at totalWords)
+    var displayWordIndex: Int {
+        min(currentWordIndex + 1, totalWords)
+    }
+    
     private var textReader: TextReader?
     private var timer: Timer?
     
