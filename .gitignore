@@ -1,0 +1,36 @@
+# Rust
+fast-reading-core/target/
+fast-reading-core/Cargo.lock
+
+# iOS / Xcode
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+*.xcworkspace
+*.xcuserdata
+.DS_Store
+*.swp
+*~.nib
+DerivedData/
+build/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Generated iOS libraries
+ios-lib/*.a
+ios-lib/*.h
+
+# Swift Package Manager
+.swiftpm/
+.build/
+*.xcworkspace
+
+# CocoaPods
+Pods/
+*.podspec
+Podfile.lock
+
+# Temporary files
+*.tmp
+*~
+.*.swp
