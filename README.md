@@ -34,6 +34,12 @@ cd fast-reading-core
 3. Add the Swift files and link the Rust libraries
 4. Build and run in simulator (⌘+R)
 
+**Or use the automated script**:
+```bash
+./test-simulator.sh
+```
+This script will build the Rust library and prepare the simulator for testing.
+
 ### Testing in Simulator
 
 **Easiest method**:

@@ -1,4 +1,4 @@
-.PHONY: help build-rust test-rust build-ios clean sim-list sim-boot sim-open sim-shutdown
+.PHONY: help build-rust test-rust build-ios clean sim-list sim-boot sim-open sim-shutdown sim-test
 
 help:
 	@echo "Fast Reading App - Build Commands"
@@ -10,10 +10,14 @@ help:
 	@echo "  make clean         - Clean build artifacts"
 	@echo ""
 	@echo "Simulator (macOS only):"
+	@echo "  make sim-test      - Run automated test script (build + start simulator)"
 	@echo "  make sim-list      - List available iOS simulators"
 	@echo "  make sim-boot      - Boot iPhone 15 Pro simulator"
 	@echo "  make sim-open      - Open Simulator app"
 	@echo "  make sim-shutdown  - Shutdown all simulators"
+	@echo ""
+	@echo "Quick Test:"
+	@echo "  ./test-simulator.sh or make sim-test"
 	@echo ""
 	@echo "See SIMULATOR_GUIDE.md for detailed simulator instructions"
 	@echo ""
@@ -32,6 +36,9 @@ clean:
 	rm -rf ios-lib
 
 # Simulator management commands (macOS only)
+sim-test:
+	@./test-simulator.sh
+
 sim-list:
 	@echo "Available iOS Simulators:"
 	@xcrun simctl list devices available | grep -E "iPhone|iPad"

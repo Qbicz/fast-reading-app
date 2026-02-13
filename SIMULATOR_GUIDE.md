@@ -2,6 +2,28 @@
 
 This guide explains how to start and use the iOS Simulator to test the Fast Reading App.
 
+## Overview
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                   Testing Workflow                       │
+└─────────────────────────────────────────────────────────┘
+
+1. Build Rust Library          2. Open Xcode           3. Run in Simulator
+   ┌──────────────┐              ┌──────────────┐        ┌──────────────┐
+   │ make build-ios│             │ open project  │        │   ⌘ + R       │
+   │      or       │──────────►  │   configure   │───────►│  (Build+Run)  │
+   │ ./build-ios.sh│             │  link libs    │        │              │
+   └──────────────┘              └──────────────┘        └──────────────┘
+                                                                 │
+                                                                 ▼
+                                                         ┌──────────────┐
+                                                         │  Simulator   │
+                                                         │   Opens &    │
+                                                         │  App Runs!   │
+                                                         └──────────────┘
+```
+
 ## Prerequisites
 
 Before starting the simulator, ensure you have:
