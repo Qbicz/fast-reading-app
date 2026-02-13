@@ -102,9 +102,15 @@ struct ReadingView: View {
             ProgressView(value: viewModel.progress)
                 .padding()
             
-            Text("\(min(viewModel.currentWordIndex + 1, viewModel.totalWords)) / \(viewModel.totalWords)")
-                .font(.caption)
-                .foregroundColor(.gray)
+            if viewModel.totalWords > 0 {
+                Text("\(min(viewModel.currentWordIndex + 1, viewModel.totalWords)) / \(viewModel.totalWords)")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            } else {
+                Text("No words to display")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
             
             Spacer()
             

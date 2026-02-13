@@ -31,10 +31,17 @@ impl TextReader {
     }
 
     pub fn next_word(&mut self) -> Option<&str> {
-        if self.current_index < self.words.len() {
+        if self.current_index < self.words.len() - 1 {
             self.current_index += 1;
+            self.get_current_word()
+        } else if self.current_index == self.words.len() - 1 {
+            // At last word, mark as complete but don't advance
+            self.current_index = self.words.len();
+            None
+        } else {
+            // Already past the end
+            None
         }
-        self.get_current_word()
     }
 
     pub fn previous_word(&mut self) -> Option<&str> {
@@ -52,7 +59,9 @@ impl TextReader {
         if self.words.is_empty() {
             return 0.0;
         }
-        self.current_index as f32 / self.words.len() as f32
+        // Cap progress at 1.0
+        let progress = self.current_index as f32 / self.words.len() as f32;
+        progress.min(1.0)
     }
 }
 
@@ -214,6 +223,13 @@ mod tests {
         assert_eq!(reader.get_progress(), 0.25);
         reader.next_word();
         assert_eq!(reader.get_progress(), 0.5);
+        reader.next_word();
+        assert_eq!(reader.get_progress(), 0.75);
+        reader.next_word();
+        // Progress should be capped at 1.0
+        assert_eq!(reader.get_progress(), 1.0);
+        reader.next_word();
+        assert_eq!(reader.get_progress(), 1.0);
     }
 
     #[test]

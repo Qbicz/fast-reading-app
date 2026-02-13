@@ -7,7 +7,14 @@ class ReadingViewModel: ObservableObject {
     @Published var totalWords: Int = 0
     @Published var isReading: Bool = false
     @Published var isPlaying: Bool = false
-    @Published var wordsPerMinute: Double = 300
+    @Published var wordsPerMinute: Double = 300 {
+        didSet {
+            // If playing, restart timer with new speed
+            if isPlaying {
+                startAutoPlay()
+            }
+        }
+    }
     @Published var progress: Float = 0.0
     @Published var errorMessage: String = ""
     @Published var showError: Bool = false
