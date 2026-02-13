@@ -85,6 +85,11 @@ struct InputView: View {
         } message: {
             Text("Enter the URL of a text file or webpage")
         }
+        .alert("Error", isPresented: $viewModel.showError) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(viewModel.errorMessage)
+        }
     }
 }
 
@@ -97,7 +102,7 @@ struct ReadingView: View {
             ProgressView(value: viewModel.progress)
                 .padding()
             
-            Text("\(viewModel.currentWordIndex + 1) / \(viewModel.totalWords)")
+            Text("\(min(viewModel.currentWordIndex + 1, viewModel.totalWords)) / \(viewModel.totalWords)")
                 .font(.caption)
                 .foregroundColor(.gray)
             

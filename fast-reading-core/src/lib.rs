@@ -199,6 +199,9 @@ mod tests {
         assert_eq!(reader.next_word(), Some("Two"));
         assert_eq!(reader.next_word(), Some("Three"));
         assert_eq!(reader.next_word(), None);
+        // Verify multiple calls after end continue to return None
+        assert_eq!(reader.next_word(), None);
+        assert_eq!(reader.next_word(), None);
         assert_eq!(reader.previous_word(), Some("Three"));
         assert_eq!(reader.previous_word(), Some("Two"));
     }

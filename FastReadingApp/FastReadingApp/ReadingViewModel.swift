@@ -9,6 +9,8 @@ class ReadingViewModel: ObservableObject {
     @Published var isPlaying: Bool = false
     @Published var wordsPerMinute: Double = 300
     @Published var progress: Float = 0.0
+    @Published var errorMessage: String = ""
+    @Published var showError: Bool = false
     
     private var textReader: TextReader?
     private var timer: Timer?
@@ -28,19 +30,41 @@ class ReadingViewModel: ObservableObject {
     }
     
     func loadFromURL(_ urlString: String) {
-        guard let url = URL(string: urlString) else { return }
+        guard let url = URL(string: urlString) else {
+            showErrorMessage("Invalid URL format")
+            return
+        }
         
-        // Simple URL loading - for real implementation, would need better error handling
         URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-            guard let data = data,
-                  let text = String(data: data, encoding: .utf8) else {
-                return
-            }
-            
             DispatchQueue.main.async {
+                if let error = error {
+                    self?.showErrorMessage("Network error: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let data = data else {
+                    self?.showErrorMessage("No data received from URL")
+                    return
+                }
+                
+                guard let text = String(data: data, encoding: .utf8) else {
+                    self?.showErrorMessage("Unable to read text from URL (encoding error)")
+                    return
+                }
+                
+                if text.isEmpty {
+                    self?.showErrorMessage("URL returned empty content")
+                    return
+                }
+                
                 self?.loadText(text)
             }
         }.resume()
+    }
+    
+    private func showErrorMessage(_ message: String) {
+        errorMessage = message
+        showError = true
     }
     
     func togglePlayPause() {
