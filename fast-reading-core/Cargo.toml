@@ -1,0 +1,12 @@
+[package]
+name = "fast-reading-core"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "fast_reading_core"
+crate-type = ["staticlib", "lib"]
+
+[dependencies]
+html2text = "0.12"
+pdf-extract = "0.7"

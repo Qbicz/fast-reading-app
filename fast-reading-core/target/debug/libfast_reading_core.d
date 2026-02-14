@@ -1,0 +1,1 @@
+/workspace/fast-reading-core/target/debug/libfast_reading_core.rlib: /workspace/fast-reading-core/src/html_extractor.rs /workspace/fast-reading-core/src/lib.rs /workspace/fast-reading-core/src/pdf_extractor.rs /workspace/fast-reading-core/src/text_reader.rs
