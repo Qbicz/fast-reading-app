@@ -1,0 +1,23 @@
+# Rust
+fast-reading-core/target/
+
+# iOS / Xcode
+*.xcuserdata
+.DS_Store
+DerivedData/
+build/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Generated iOS libraries (built artifacts)
+ios-lib/*.a
+
+# Swift Package Manager
+.swiftpm/
+.build/
+
+# Temporary files
+*.tmp
+*~
+.*.swp
