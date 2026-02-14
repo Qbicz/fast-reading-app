@@ -10,13 +10,14 @@
     --text-dim:   #64748b;
     --accent:     #6366f1;
     --accent-h:   #4f46e5;
+    --accent-soft:#eef2ff;
     --word-color: #0f172a;
+    --focus-color:#6366f1;
     --danger:     #ef4444;
     --success:    #22c55e;
     --radius:     12px;
     --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
     --font:       -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-    --mono:       'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
 }
 
 [data-theme="dark"] {
@@ -25,7 +26,9 @@
     --border:     #334155;
     --text:       #f1f5f9;
     --text-dim:   #94a3b8;
+    --accent-soft:#1e1b4b;
     --word-color: #f1f5f9;
+    --focus-color:#818cf8;
     --shadow:     0 1px 3px rgba(0,0,0,.3);
 }
 
@@ -150,6 +153,14 @@ textarea {
 }
 textarea:focus { border-color: var(--accent); }
 textarea::placeholder { color: var(--text-dim); opacity: .6; }
+
+.est-time {
+    font-size: .8rem;
+    color: var(--text-dim);
+    margin-top: 6px;
+    min-height: 1.2em;
+    font-variant-numeric: tabular-nums;
+}
 
 .url-row {
     display: flex;
@@ -329,6 +340,8 @@ input[type="range"]::-moz-range-thumb {
     justify-content: center;
     min-height: 200px;
     padding: 24px 16px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .word {
@@ -338,16 +351,24 @@ input[type="range"]::-moz-range-thumb {
     text-align: center;
     line-height: 1.1;
     letter-spacing: -.02em;
-    transition: opacity .06s;
     word-break: break-word;
     max-width: 100%;
     outline: none;
+    user-select: none;
+}
+
+.word .focus-letter {
+    color: var(--focus-color);
 }
 
 .word.finished {
     color: var(--text-dim);
     font-size: 1.5rem;
     font-weight: 600;
+}
+
+.word.finished .focus-letter {
+    color: var(--text-dim);
 }
 
 /* Controls */
@@ -419,6 +440,99 @@ input[type="range"]::-moz-range-thumb {
     font-size: .75rem;
     color: var(--text-dim);
     opacity: .6;
+    line-height: 1.6;
+}
+
+/* ── Done Screen ────────────────────────────────────────────────── */
+
+.done-screen {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 20px;
+}
+
+.done-card {
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+.done-icon {
+    font-size: 4rem;
+    margin-bottom: 12px;
+}
+
+.done-card h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+}
+
+.stats-grid {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.stat {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 8px;
+}
+
+.stat-value {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+    font-size: .75rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    margin-top: 4px;
+}
+
+.done-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ── Drop Zone ──────────────────────────────────────────────────── */
+
+.drop-zone {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(99,102,241,.15);
+    backdrop-filter: blur(4px);
+}
+
+.drop-zone-inner {
+    background: var(--surface);
+    border: 3px dashed var(--accent);
+    border-radius: 24px;
+    padding: 48px 64px;
+    text-align: center;
+    color: var(--accent);
+}
+
+.drop-zone-inner svg { margin-bottom: 12px; }
+
+.drop-zone-inner p {
+    font-size: 1.1rem;
+    font-weight: 700;
 }
 
 /* ── Loading overlay ────────────────────────────────────────────── */
@@ -493,6 +607,9 @@ input[type="range"]::-moz-range-thumb {
     .hero h1 { font-size: 1.4rem; }
     textarea { min-height: 100px; }
     .shortcuts-hint { display: none; }
+    .stats-grid { gap: 6px; }
+    .stat { padding: 12px 6px; }
+    .stat-value { font-size: 1.1rem; }
 }
 
 /* ── Accessibility ──────────────────────────────────────────────── */
@@ -506,5 +623,5 @@ input[type="range"]::-moz-range-thumb {
 
 @supports (padding-top: env(safe-area-inset-top)) {
     .app-header { padding-top: max(12px, env(safe-area-inset-top)); }
-    .input-screen, .read-screen { padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+    .input-screen, .read-screen, .done-screen { padding-bottom: max(24px, env(safe-area-inset-bottom)); }
 }

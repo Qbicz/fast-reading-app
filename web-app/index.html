@@ -36,6 +36,7 @@
     <div>
         <div class="section-label">Paste text</div>
         <textarea id="text-input" placeholder="Paste or type your text here…" rows="6"></textarea>
+        <div id="est-time" class="est-time"></div>
     </div>
 
     <button id="btn-start" class="btn btn-primary btn-full">
@@ -90,9 +91,11 @@
         <input id="seek-bar" type="range" min="0" max="0" value="0" step="1" aria-label="Seek">
     </div>
 
-    <!-- Word display -->
+    <!-- Word display with ORP focus letter -->
     <div class="word-area">
-        <div id="word" class="word" tabindex="-1" aria-live="polite">—</div>
+        <div id="word" class="word" tabindex="-1" aria-live="polite">
+            <span id="word-pre"></span><span id="word-focus" class="focus-letter"></span><span id="word-post"></span>
+        </div>
     </div>
 
     <!-- Playback controls -->
@@ -129,11 +132,52 @@
         </div>
 
         <div class="shortcuts-hint">
-            Space = play/pause &nbsp; ← → = navigate &nbsp; ↑ ↓ = speed &nbsp; Esc = stop
+            Space = play/pause &nbsp; ← → = navigate &nbsp; ↑ ↓ = speed &nbsp; Esc = stop<br>
+            Tap word = play/pause &nbsp; Swipe = navigate
         </div>
     </div>
 
 </main>
+
+<!-- ── Done Screen ──────────────────────────────────────────────── -->
+<main id="done-screen" class="done-screen hidden">
+    <div class="done-card">
+        <div class="done-icon">🎉</div>
+        <h2>Reading Complete</h2>
+        <div class="stats-grid">
+            <div class="stat">
+                <div class="stat-value" id="stat-words">0</div>
+                <div class="stat-label">Words</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="stat-time">0s</div>
+                <div class="stat-label">Active Time</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="stat-speed">0</div>
+                <div class="stat-label">Avg Speed</div>
+            </div>
+        </div>
+        <div class="done-actions">
+            <button id="btn-done-reread" class="btn btn-primary btn-full">
+                <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7a6 6 0 0 1 6 6 6 6 0 0 1-6 6 6 6 0 0 1-5.65-4H4.26A8 8 0 1 0 12 5z"/></svg>
+                Read Again
+            </button>
+            <button id="btn-done-back" class="btn btn-secondary btn-full">
+                <svg viewBox="0 0 24 24"><path d="M19 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H19v-2z"/></svg>
+                New Content
+            </button>
+        </div>
+    </div>
+</main>
+
+<!-- Drop zone overlay -->
+<div id="drop-zone" class="drop-zone hidden">
+    <div class="drop-zone-inner">
+        <svg viewBox="0 0 24 24" width="48" height="48"><path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
+        <p>Drop file here</p>
+    </div>
+</div>
 
 <!-- Loading overlay -->
 <div id="loading" class="loading-overlay hidden">
