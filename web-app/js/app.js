@@ -1,6 +1,18 @@
 import { TextReader } from './reader.js';
 import { extractFromURL, extractFromFile } from './extractor.js';
 
+// ── Default text ────────────────────────────────────────────────────
+
+const DEFAULT_TEXT = `Welcome to Fast Reader, a speed reading app that displays text one word at a time in the center of your screen. This technique is called RSVP, which stands for Rapid Serial Visual Presentation. It works by eliminating the need for your eyes to move across a page, letting your brain focus entirely on recognizing each word.
+
+Most people read at around 200 to 250 words per minute. With RSVP, you can comfortably reach 300 to 500 words per minute and, with practice, even faster. The key is to trust your brain. You do not need to mentally pronounce every word to understand it. As you get comfortable, try increasing the speed using the slider below.
+
+Start with the default 300 words per minute. Once that feels easy, bump it up by 30 or 60. You might be surprised how quickly your brain adapts. If you miss a word, use the back button or swipe right to go back. On a keyboard, press the left arrow or space bar to pause.
+
+You can also load any article from the web by pasting its URL, or open a PDF or text file from your device. Fast Reader extracts the readable text automatically so you can speed read anything.
+
+Give it a try now. Press the play button and see how fast you can go.`;
+
 // ── State ───────────────────────────────────────────────────────────
 
 let reader = null;
@@ -454,6 +466,10 @@ function init() {
 
     wpmSlider.addEventListener('change', () => localStorage.setItem('wpm', wpm));
     rWpmSlider.addEventListener('change', () => localStorage.setItem('wpm', wpm));
+
+    // Pre-fill with default sample text
+    textInput.value = DEFAULT_TEXT;
+    updateEstTime();
 
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sw.js').catch(() => {});
