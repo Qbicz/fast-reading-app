@@ -29,6 +29,11 @@ export function detectContentType(contentTypeHeader, url) {
 export function extractHTMLText(html) {
     const doc = new DOMParser().parseFromString(html, 'text/html');
 
+    // Collect metadata before stripping elements (fallback for JS-rendered pages)
+    const title = doc.querySelector('title')?.textContent?.trim() || '';
+    const metaDesc = doc.querySelector('meta[name="description"]')?.getAttribute('content')?.trim() || '';
+    const metaOG = doc.querySelector('meta[property="og:description"]')?.getAttribute('content')?.trim() || '';
+
     // Remove non-content elements
     const remove = [
         'script', 'style', 'noscript', 'iframe', 'svg',
@@ -46,13 +51,23 @@ export function extractHTMLText(html) {
         '.entry-content, .content, #content, #article'
     );
     const source = main || doc.body;
-    if (!source) return '';
+    let text = '';
+    if (source) {
+        text = source.textContent
+            .replace(/[\t ]+/g, ' ')
+            .replace(/\n{3,}/g, '\n\n')
+            .trim();
+    }
 
-    // Get text, collapse whitespace
-    return source.textContent
-        .replace(/[\t ]+/g, ' ')
-        .replace(/\n{3,}/g, '\n\n')
-        .trim();
+    // If body was empty (JS/WASM-rendered SPA), try metadata fallback
+    if (!text || text.split(/\s+/).length < 5) {
+        const fallbackParts = [title, metaDesc || metaOG].filter(Boolean);
+        if (fallbackParts.length > 0 && (!text || text.split(/\s+/).length < fallbackParts.join(' ').split(/\s+/).length)) {
+            text = fallbackParts.join('. ');
+        }
+    }
+
+    return text;
 }
 
 // ── PDF extraction ──────────────────────────────────────────────────

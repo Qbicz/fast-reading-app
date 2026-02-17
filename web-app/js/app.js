@@ -123,10 +123,12 @@ function renderWord(word) {
 
 // ── Reading engine ──────────────────────────────────────────────────
 
-function startReading(text) {
+function startReading(text, fromURL = false) {
     const clean = text.trim();
     if (!clean) {
-        showToast('No readable text found.');
+        showToast(fromURL
+            ? 'No readable text found. This site may render content with JavaScript, which cannot be extracted. Try saving the page and opening it with the File button.'
+            : 'No readable text found.');
         return;
     }
 
@@ -294,7 +296,7 @@ async function loadFromURL() {
     showLoading(true);
     try {
         const text = await extractFromURL(url);
-        startReading(text);
+        startReading(text, true);
     } catch (err) {
         showToast(err.message || 'Failed to load URL.');
     } finally {
