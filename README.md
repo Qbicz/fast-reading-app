@@ -1,35 +1,25 @@
 # Fast Reader
 
-Speed-read any **website**, **PDF**, or **text file** — one word at a time (RSVP).
+Speed-read any **website**, **PDF**, or **text file** — one word at a time (Rapid Serial Visual Presentation).
 
-Two versions are available:
+**Try it now:** [kubicz.engineer/fast-reading-app](https://kubicz.engineer/fast-reading-app/)
 
-| Version | Platform | Build Requirements |
-|---------|----------|--------------------|
-| **PWA (web app)** | Any device with a browser | None — just serve static files |
-| **Native iOS** | iPhone / iPad | macOS + Xcode + Rust toolchain |
+A mobile-first web app that works on any device. Install it on your phone for a native-app experience — no app store needed.
 
----
-
-## PWA (Progressive Web App) — recommended
-
-A mobile-first web app that works on any device. No Mac or Xcode required.
+To install on your iPhone:
+1. Open the URL in Safari or other browser
+2. Tap the Share button → "Add to Home Screen"
+3. The app launches in standalone mode
 
 ### Features
 
-- **Three input methods**: paste text, enter a URL, or pick a local file (PDF / TXT)
-- **Smart content detection**: auto-detects HTML pages, PDFs, and plain text
-- **HTML extraction**: browser's built-in DOMParser strips tags and extracts article content
-- **PDF extraction**: Mozilla pdf.js extracts text from PDFs
-- **CORS fallback**: auto-retries via CORS proxy when sites block direct access
-- **Central word display**: large, bold, centered — distraction-free RSVP reading
-- **Adjustable speed**: 60 – 1,500 WPM with live adjustment during playback
-- **Playback controls**: play/pause, forward, backward, seek bar, restart, stop
-- **Keyboard shortcuts**: Space, arrows, Escape, R
-- **Dark / light theme**: auto-detects system preference, manual toggle
-- **Installable**: add to home screen on iOS/Android for a native-app feel
-- **Offline capable**: service worker caches the app shell
-- **No dependencies**: zero build step, pure HTML/CSS/JS + ES modules
+- **Read anything**: paste text, enter a URL, or open a local file (PDF / TXT)
+- **Distraction-free reading**: one word at a time, large and centered
+- **Adjustable speed**: 60 – 1,500 WPM, changeable during playback
+- **Full playback controls**: play / pause, skip forward / backward, seek bar, keyboard shortcuts
+- **Dark / light theme**: follows your system preference with a manual toggle
+- **Installable**: add to home screen on iOS / Android for a native-app feel
+- **Works offline**: keep reading even without a connection
 
 ### Quick Start
 
@@ -38,11 +28,6 @@ cd web-app
 python3 -m http.server 8080
 # Open http://localhost:8080 in your browser
 ```
-
-To install on your iPhone:
-1. Open the URL in Safari
-2. Tap the Share button → "Add to Home Screen"
-3. The app launches in standalone mode (no browser chrome)
 
 ### Deploy
 
@@ -65,50 +50,8 @@ web-app/
 
 ---
 
-## Native iOS App
+## Native iOS App (experimental)
 
-Uses **Rust** for business logic (text parsing, HTML extraction, PDF extraction) with a **SwiftUI** interface, bridged via C FFI. Requires a Mac with Xcode.
+The repo also contains a native iOS app built with **Rust** + **SwiftUI**. This is a separate codebase from the PWA — the two don't share data. For most users the PWA is the easier choice since it already installs on iPhones via "Add to Home Screen."
 
-See [SETUP.md](SETUP.md) for full build instructions.
-
-### Architecture
-
-```
-SwiftUI (ContentView, ReadingViewModel)
-  │
-  ▼
-Swift wrapper (RustBridge.swift)
-  │  C FFI
-  ▼
-Rust core (fast-reading-core)
-  ├── text_reader   — word splitting & navigation
-  ├── html_extractor — HTML → plain text (html2text crate)
-  └── pdf_extractor  — PDF bytes → plain text (pdf-extract crate)
-```
-
-### Build
-
-```bash
-# 1. Build Rust for iOS
-cd fast-reading-core && ./build-ios.sh
-
-# 2. Open in Xcode, configure per SETUP.md, then Cmd+R
-```
-
----
-
-## Running Tests
-
-```bash
-# Rust unit tests (11 tests)
-cd fast-reading-core && cargo test
-
-# JS TextReader tests
-node --input-type=module -e "
-import { TextReader } from './web-app/js/reader.js';
-const r = new TextReader('Hello world');
-console.assert(r.wordCount === 2);
-console.assert(r.currentWord() === 'Hello');
-console.log('OK');
-"
-```
+See [SETUP.md](SETUP.md) for build instructions (requires macOS + Xcode + Rust toolchain).
