@@ -335,6 +335,14 @@ btnRestart.addEventListener('click', restartReading);
 btnDoneBack.addEventListener('click', stopReading);
 btnDoneReread.addEventListener('click', reread);
 
+// Install modal
+const installModal = $('install-modal');
+$('btn-install').addEventListener('click', () => installModal.classList.remove('hidden'));
+$('btn-install-close').addEventListener('click', () => installModal.classList.add('hidden'));
+installModal.addEventListener('click', e => {
+    if (e.target === installModal) installModal.classList.add('hidden');
+});
+
 wpmSlider.addEventListener('input', e => setWpm(+e.target.value));
 rWpmSlider.addEventListener('input', e => setWpm(+e.target.value));
 

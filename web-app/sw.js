@@ -1,4 +1,4 @@
-const CACHE = 'fast-reader-v3';
+const CACHE = 'fast-reader-v4';
 
 const APP_SHELL = [
     './',

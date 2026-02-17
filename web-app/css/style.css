@@ -506,6 +506,102 @@ input[type="range"]::-moz-range-thumb {
     gap: 10px;
 }
 
+/* ── Install Hint ───────────────────────────────────────────────── */
+
+.install-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-size: .85rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: background .15s, color .15s;
+}
+.install-hint:hover { background: var(--accent-soft); color: var(--accent); }
+.install-hint svg { opacity: .7; }
+.install-hint:hover svg { opacity: 1; }
+
+/* ── Install Modal ──────────────────────────────────────────────── */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.45);
+    backdrop-filter: blur(4px);
+    padding: 20px;
+}
+
+.modal-card {
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 28px 24px 24px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow: 0 16px 48px rgba(0,0,0,.25);
+}
+
+.modal-card h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.install-steps {
+    list-style: none;
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding: 0;
+}
+
+.install-steps li {
+    counter-increment: step;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: .93rem;
+    line-height: 1.5;
+    color: var(--text);
+}
+
+.install-steps li::before {
+    content: counter(step);
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 700;
+    border-radius: 50%;
+}
+
+.install-steps .step-icon { display: none; }
+
+.share-icon-inline {
+    display: inline-flex;
+    vertical-align: middle;
+    color: var(--accent);
+    margin: 0 2px;
+}
+
 /* ── Drop Zone ──────────────────────────────────────────────────── */
 
 .drop-zone {
